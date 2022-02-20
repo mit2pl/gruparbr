@@ -11,6 +11,7 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'title',
         'content',
         'author',
@@ -24,5 +25,9 @@ class Post extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author', 'id');
+    }
+    public function comments(): BelongsTo
+    {
+        return $this->belongsTo(Comment::class, 'id', 'post_id');
     }
 }

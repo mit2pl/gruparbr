@@ -19,5 +19,25 @@ class PostSeeder extends Seeder
             'title' => 'title1',
             'content' => 'content1',
         ]);
+        Post::create([
+            'author' => '1',
+            'title' => 'title1',
+            'content' => 'content1',
+        ]);
+        Post::create([
+            'author' => '2',
+            'title' => 'title1',
+            'content' => 'content1',
+        ]);
+        Post::create([
+            'author' => '1',
+            'title' => 'title1',
+            'content' => 'content1',
+        ]);
+        Post::create([
+            'author' => '2',
+            'title' => 'title1',
+            'content' => 'content1',
+        ]);
     }
 }

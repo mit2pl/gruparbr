@@ -22,5 +22,12 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'remember_token'    => Str::random(10),
         ]);
+        User::create([
+            'name' => 'user2',
+            'email' => 'user2@gruparbr.pl',
+            'email_verified_at' => now(),
+            'password' => 'password',
+            'remember_token'    => Str::random(10),
+        ]);
     }
 }
