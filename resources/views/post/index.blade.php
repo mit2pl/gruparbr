@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    @if(isset($fiajwefha))
+        <div>{{ $fiajwefha }}</div>
+    @endisset
     @foreach($post as $posts)
     <div class="container mb-3">
         <div class="row justify-content-center">
