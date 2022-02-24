@@ -14,7 +14,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comment = Comment::with("post")->paginate(10);
+        return view("comment.index")->with("comment", $comment);
     }
 
     /**
@@ -40,7 +41,7 @@ class CommentController extends Controller
             'author' => auth()->user()->id,
             'content' => $request->get("commentvalue")
         ]);
-        return back()->with('msg', "message");
+        return back()->with('commentinformation', "Comment was added");
     }
 
     /**
@@ -51,7 +52,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return view("comment.show", $comment)->with(["comment" => $comment]);
     }
 
     /**
@@ -60,9 +61,10 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit($comment)
     {
-        //
+        $getcomment = Comment::where("id", $comment)->first();
+        return view("comment.edit")->with("comment", $getcomment);
     }
 
     /**
@@ -75,9 +77,9 @@ class CommentController extends Controller
     public function update(Request $request, Comment $comment)
     {
         $comment->update([
-            'content' => $request->get('content')
+            'content' => $request->get("comment")
         ]);
-        return  redirect()->route("Post.show");
+        return  redirect()->route("post.show", $comment->post_id)->with("commentinformation", "Comment was edited");
     }
 
     /**
@@ -89,5 +91,6 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
+        return redirect()->route("post.show", $comment->post_id)->with("commentinformation", "Comment was delete");
     }
 }

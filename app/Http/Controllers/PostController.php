@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -37,7 +38,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create([
+            'author' => auth()->user()->id,
+            'title' => $request->get("title"),
+            'content' => $request->get("content")
+        ]);
+        return redirect()->route("post.index")->with("postinformation", "Your Post was added");
     }
 
     /**
@@ -46,11 +52,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $showpost = Post::where("id", $id)->first();
-        $getcomment = Comment::where("post_id", $id)->paginate(10);
-        return view("post.show")->with(["showpost" => $showpost, 'getcomment' => $getcomment]);
+        $getcomment = Comment::where("post_id", $post->id)->paginate(10);
+        return view("post.show")->with(["showpost" => $post, 'getcomment' => $getcomment]);
     }
 
     /**
@@ -59,9 +64,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view("post.edit")->with("editpost", $post);
     }
 
     /**
@@ -71,9 +76,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Post $post)
     {
-        //
+        $post->update([
+            'title' => $request->get("title"),
+            'content' => $request->get("content")
+        ]);
+        return redirect()->route("post.show", $post->id);
     }
 
     /**
@@ -82,8 +91,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route("post.index")->with("postinformation", "Your Post was delete");
     }
 }

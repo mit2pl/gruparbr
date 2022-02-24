@@ -32,8 +32,13 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
+                    <ul class="nav justify-content-center">
+                        <li>
+                            <a href="{{route("post.index")}}">Posts</a>
+                        </li>
+                        <li>
+                            <a href="{{route("comment.index")}}">Comment</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
