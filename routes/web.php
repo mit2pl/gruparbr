@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\User\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +24,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource("/comment", App\Http\Controllers\CommentController::class)->except("create")->middleware("auth");
 Route::resource("/post", App\Http\Controllers\PostController::class)->middleware("auth");
+Route::prefix("users")
+    ->name("users.")
+    ->namespace("users")
+    ->middleware("auth")
+    ->group(function() {
+        Route::get('/', [UserController::class, 'index'])->name("index");
+        Route::get("/create", [UserController::class, 'create'])->name("create");
+        Route::post("/create", [UserController::class, 'store'])->name("store");
+    });

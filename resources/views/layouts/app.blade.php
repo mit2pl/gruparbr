@@ -32,15 +32,17 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav justify-content-center">
-                        <li>
-                            <a href="{{route("post.index")}}">Posts</a>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route("post.index")}}">Post</a>
                         </li>
-                        <li>
-                            <a href="{{route("comment.index")}}">Comment</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route("comment.index")}}">Comment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route("users.index")}}">Users</a>
                         </li>
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
