@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command("PostCommand")->daily();
+        $schedule->command("CommentCommand")->cron("0 0/36 * 1/1 * ? *");
     }
 
     /**
